@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.DbDetectionActivity">
+    
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/tv_db_value"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="80dp"
+        android:textSize="24sp"
+        android:text="0 db"
+        android:gravity="center"
+        android:background="@drawable/shape_bg_circle"/>
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:text="请点击按钮检测环境噪音."
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/engrave_start"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/selector_bg_20_radius"
+        android:textColor="@drawable/selector_text_button"
+        android:textSize="18sp"
+        android:enabled="true"
+        android:text="开始检测"/>
+
+</LinearLayout>

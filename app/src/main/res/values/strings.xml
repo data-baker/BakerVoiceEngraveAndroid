@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">BakerVoiceEngraveAndroid</string>
+    <string name="app_name">标贝复刻</string>
+    <string name="string_welcome">欢迎体验</string>
+    <string name="string_baker_engrave">标贝科技声音复刻技术</string>
+    <string name="string_voice_engrave">声音复刻</string>
+    <string name="string_listen_experience">试听体验</string>
+    <string name="string_listen_experience_null">试听体验\n当前无声音模型。</string>
+    <string name="string_step_1">第一步：环境检测</string>
+    <string name="string_step_2">第二步：录音上传</string>
+    <string name="string_step_3">第三步：开启训练</string>
+    <string name="string_content_total">共%d段</string>
+    <string name="string_recognize_success">太棒了，准确率：%d，请录制下一段吧。</string>
+    <string name="string_recognize_fail">识别率：%d，请重新录制本段。</string>
+    <string name="string_finish_record_tip">恭喜您，\n您已经完成了所有声音的录制。\n现在请点击下方按钮，\n开启声音模型的训练吧。\n训练成功后，\n您就可以体验到这项黑科技的\n惊喜啦。</string>
+    <string name="string_words_remind">字数：%s/200</string>
+
 </resources>

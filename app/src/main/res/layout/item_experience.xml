@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/bg_edit_text"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="32sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="1" />
+
+        <TextView
+            android:id="@+id/tv_status_name"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:text="复刻完成"
+            android:gravity="center"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_mould_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="xxxxxxsdsxxsxasxasddasdsaxasxaxxxsad"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:singleLine="true"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:textColor="@color/color_797979"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"/>
+</LinearLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ExperienceActivity"
+    android:orientation="vertical">
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/tv_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="42sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:text="1" />
+
+        <TextView
+            android:id="@+id/tv_mould_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="声音ID：asdasdsdafadfdsgfsddfgfsdgsfddsafsfsadsafdsafdsfds"
+            android:textSize="14sp"
+            android:textColor="@color/color_797979"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edt_tts_content"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/bg_edit_text"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="6dp"
+        android:padding="8dp"
+        android:hint="请在这里输入需要合成的文本..."
+        android:textSize="14sp"
+        android:gravity="start"
+        android:textColorHint="@color/color_797979"
+        android:textColor="@android:color/black"
+        android:maxLength="200"/>
+
+    <TextView
+        android:id="@+id/tv_words_remind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="字数：0/200"
+        android:textSize="14sp"
+        android:textColor="@color/color_797979"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="end"/>
+
+    <SeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
+        android:maxHeight="4dp"
+        android:progressDrawable="@drawable/seek_bar_customize"
+        />
+
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/selector_bg_20_radius"
+        android:textColor="@drawable/selector_text_button"
+        android:textSize="18sp"
+        android:enabled="true"
+        android:text="合成播放"/>
+
+</LinearLayout>
