@@ -27,8 +27,7 @@ public class SharedPreferencesUtil {
                 .getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         String queryId = sp.getString(FIELD_NAME_QUERY_ID, null);
         if (TextUtils.isEmpty(queryId)) {
-//            queryId = UUID.randomUUID().toString();
-            queryId = "93bc125a-7004-4892-968f-d53c4913840e";
+            queryId = UUID.randomUUID().toString();
             sp.edit().putString(FIELD_NAME_QUERY_ID, queryId).apply();
             return queryId;
         } else {
