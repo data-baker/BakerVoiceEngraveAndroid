@@ -1,5 +1,8 @@
 package com.baker.engrave.demo.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,6 +52,7 @@ public class ExperienceActivity extends BaseActivity implements SeekBar.OnSeekBa
     private void initView() {
         tvIndex = findViewById(R.id.tv_index);
         tvMouldId = findViewById(R.id.tv_mould_id);
+        tvMouldId.setOnClickListener(this);
         editText = findViewById(R.id.edt_tts_content);
         seekBar = findViewById(R.id.seek_bar);
         seekBar.setOnSeekBarChangeListener(this);
@@ -103,12 +107,29 @@ public class ExperienceActivity extends BaseActivity implements SeekBar.OnSeekBa
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btn_play) {
-            if (mediaPlayer.isPlaying()) {
-                stopPlay();
-            } else {
-                prepare();
-            }
+        switch (view.getId()) {
+            case R.id.btn_play:
+                if (mediaPlayer.isPlaying()) {
+                    stopPlay();
+                } else {
+                    prepare();
+                }
+                break;
+            case R.id.tv_mould_id:
+                try {
+                    //获取剪贴板管理器：
+                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    // 创建普通字符型ClipData
+                    ClipData mClipData = ClipData.newPlainText("Label", "这里是要复制的文字");
+                    // 将ClipData内容放到系统剪贴板里。
+                    cm.setPrimaryClip(mClipData);
+                    Toast.makeText(ExperienceActivity.this, "模型ID复制成功", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    return;
+                }
+                break;
+            default:
+                break;
         }
     }
 
