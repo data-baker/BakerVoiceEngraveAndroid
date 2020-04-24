@@ -120,7 +120,7 @@ public class ExperienceActivity extends BaseActivity implements SeekBar.OnSeekBa
                     //获取剪贴板管理器：
                     ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                     // 创建普通字符型ClipData
-                    ClipData mClipData = ClipData.newPlainText("Label", "这里是要复制的文字");
+                    ClipData mClipData = ClipData.newPlainText("Label", mouldId);
                     // 将ClipData内容放到系统剪贴板里。
                     cm.setPrimaryClip(mClipData);
                     Toast.makeText(ExperienceActivity.this, "模型ID复制成功", Toast.LENGTH_SHORT).show();
