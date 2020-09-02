@@ -16,6 +16,8 @@ public class BakerEngraveApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mApplication = this;
+        //初始化复刻SDK //QueryId的作用是xxx，非常建议设置。
+        BakerVoiceEngraver.getInstance().initSDK(this, Constants.clientId, Constants.clientSecret, SharedPreferencesUtil.getQueryId());
     }
 
     public static Context getContext() {
