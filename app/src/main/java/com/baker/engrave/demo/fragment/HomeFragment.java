@@ -35,11 +35,11 @@ public class HomeFragment extends BaseFragment {
                     PermissionUtil.needPermission(getActivity(), 89, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE
                     );
                 } else {
-                    if (BuildConfig.DEBUG) {
-                        startActivity(new Intent(getActivity(), EngraveActivity.class));
-                    } else {
+//                    if (BuildConfig.DEBUG) {
+//                        startActivity(new Intent(getActivity(), EngraveActivity.class));
+//                    } else {
                         startActivity(new Intent(getActivity(), DbDetectionActivity.class));
-                    }
+//                    }
                 }
             }
         });
