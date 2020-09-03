@@ -142,6 +142,10 @@ setDetectCallback()		| 设置噪音检测的回调	| 	setDetectCallback(DetectCa
 setRecordCallback()	| 	设置录音上传相关回调	| 	setRecordCallback(RecordCallback callback)设置录音、上传、识别检测、错误信息等接口方法的回调。
 setUploadRecordsCallback()	| 	设置开启模型训练结果的回调。		| setUploadRecordsCallback(UploadRecordsCallback callback)通过此方法设置开启模型训练结果的回调。开启训练的结果、声音模型ID、错误信息等都将通过此回调接口方法返回。
 setMouldCallback()		| 设置查询声音模型信息的回调。	| 	setMouldCallback(MouldCallback callback)设置查询结果回调。声音模型相关信息、错误信息等会通过回调方法返回。
+startPlay() | 播放录音 | 第一个参数是试听第几个录音，从 0 开始，第二个参数是个回调，详见 5.7。
+stopPlay() | 停止播放 | 停止播放已经开始的录音。
+isRecord(int index) | 判断是否录制成功 | index 从 0 开始。x 从 0 开始。如果录制成功返回 true。如果录制失败返回 false。
+
 
 
 ## 5.2 DetectCallback环境检测回调接口方法说明
@@ -173,6 +177,13 @@ onUploadError | 	错误信息回调 | 	onUploadError(int errorCode, String messa
 mouldInfo | 	根据mouldId查询mould信息回调 | 	mouldInfo(Mould mould);根据mouldId查询mould信息回调，方法的参数是返回的声音模型信息。若需要此回调方法，需要手动复写该方法。使用方式参考demo。
 mouldList | 	根据queryId分页查询mould信息回调 | 	mouldList(List<Mould> list);根据queryId分页查询mould信息回调。参数list是声音模型信息的列表。使用方式参考demo。
 onMouldError | 	错误信息回调 | 	onMouldError(int errorCode, String message);错误信息回调，errorCode是错误code码，message是详细错误信息。使用方式参考demo。
+
+## 5.7 PlayListener，录音试听回调
+接口方法名	     |   作用     | 说明
+------ | --------------- | ---------
+playStart | 试听开始 | 当开始播放的时候回调此方法
+playEnd | 试听结束 | 当播放结束的时候回调此方法
+playError | 试听报错 | 当播放过程中出现错误的时候回调此方法时候回调此方法
 
 # 6.失败时返回的code对应表
 错误码 | 	含义
