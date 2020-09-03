@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.baker.engrave.demo.BuildConfig;
 import com.baker.engrave.demo.R;
 import com.baker.engrave.demo.activity.DbDetectionActivity;
+import com.baker.engrave.demo.activity.EngraveActivity;
 import com.baker.engrave.demo.permission.PermissionUtil;
 
 /**
@@ -33,7 +35,11 @@ public class HomeFragment extends BaseFragment {
                     PermissionUtil.needPermission(getActivity(), 89, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE
                     );
                 } else {
-                    startActivity(new Intent(getActivity(), DbDetectionActivity.class));
+//                    if (BuildConfig.DEBUG) {
+//                        startActivity(new Intent(getActivity(), EngraveActivity.class));
+//                    } else {
+                        startActivity(new Intent(getActivity(), DbDetectionActivity.class));
+//                    }
                 }
             }
         });

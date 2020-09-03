@@ -14,7 +14,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +24,7 @@ import android.widget.Toast;
 import com.baker.engrave.demo.R;
 import com.baker.engrave.demo.base.Constants;
 import com.baker.engrave.lib.BakerVoiceEngraver;
+import com.baker.engrave.lib.util.HLogger;
 
 import java.net.URLEncoder;
 
@@ -107,67 +107,78 @@ public class ExperienceActivity extends BaseActivity implements SeekBar.OnSeekBa
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_play:
-                if (mediaPlayer.isPlaying()) {
-                    stopPlay();
-                } else {
-                    prepare();
-                }
-                break;
-            case R.id.tv_mould_id:
-                try {
-                    //获取剪贴板管理器：
-                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    // 创建普通字符型ClipData
-                    ClipData mClipData = ClipData.newPlainText("Label", mouldId);
-                    // 将ClipData内容放到系统剪贴板里。
-                    cm.setPrimaryClip(mClipData);
-                    Toast.makeText(ExperienceActivity.this, "模型ID复制成功", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    return;
-                }
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.btn_play) {
+            if (mediaPlayer.isPlaying()) {
+                stopPlay();
+            } else {
+                prepare();
+            }
+        } else if (id == R.id.tv_mould_id) {
+            try {
+                //获取剪贴板管理器：
+                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData = ClipData.newPlainText("Label", mouldId);
+                // 将ClipData内容放到系统剪贴板里。
+                cm.setPrimaryClip(mClipData);
+                Toast.makeText(ExperienceActivity.this, "模型ID复制成功", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                return;
+            }
         }
     }
 
     private void prepare() {
-        if (TextUtils.isEmpty(mouldId)) {
-            Toast.makeText(ExperienceActivity.this, "声音ID为空哦", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String contentStr = editText.getText().toString().trim();
-        if (TextUtils.isEmpty(contentStr)) {
-            Toast.makeText(ExperienceActivity.this, "合成文本内容不能为空哦", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String token = BakerVoiceEngraver.getInstance().getToken();
-        if (TextUtils.isEmpty(token)) {
-            Toast.makeText(ExperienceActivity.this, "合成token为空哦", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        showProgressDialog();
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-        } else {
-            mediaPlayer = new MediaPlayer();
-        }
-        try {
-            String url = String.format(Constants.TTS_MY_VOICE_URL, "3", mouldId,
-                    token, URLEncoder.encode(contentStr, "UTF-8"));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (TextUtils.isEmpty(mouldId)) {
+                    showToast("声音ID为空哦");
+                    return;
+                }
+                String contentStr = editText.getText().toString().trim();
+                if (TextUtils.isEmpty(contentStr)) {
+                    showToast("合成文本内容不能为空哦");
+                    return;
+                }
+                String token = BakerVoiceEngraver.getInstance().getToken();
+                if (TextUtils.isEmpty(token)) {
+                    showToast("合成token为空哦");
+                    return;
+                }
+                showProgressDialog();
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                } else {
+                    mediaPlayer = new MediaPlayer();
+                }
+                try {
+                    String url = String.format(Constants.TTS_MY_VOICE_URL, "3", mouldId,
+                            token, URLEncoder.encode(contentStr, "UTF-8"));
 //            String url = String.format(Constants.TTS_BASE_URL, "5", "3", "标准合成_模仿儿童_果子",
 //              token, URLEncoder.encode(contentStr, "UTF-8"));
-            Log.e("ExperienceActivity","url=" + url);
-            mediaPlayer.setDataSource(url);
-        } catch (Exception e) {
-            disMissProgressDialog();
-            e.printStackTrace();
-        }
-        mediaPlayer.prepareAsync();
+                    HLogger.e("url=" + url);
+                    mediaPlayer.setDataSource(url);
+                } catch (Exception e) {
+                    disMissProgressDialog();
+                    e.printStackTrace();
+                }
+                mediaPlayer.prepareAsync();
+            }
+        }).start();
     }
+
+    private void showToast(String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(ExperienceActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void stopPlay() {
         refreshSeekBar = false;

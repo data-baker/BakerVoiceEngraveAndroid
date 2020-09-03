@@ -21,11 +21,13 @@ import com.baker.engrave.demo.util.SharedPreferencesUtil;
 import com.baker.engrave.lib.BakerVoiceEngraver;
 import com.baker.engrave.lib.bean.Mould;
 import com.baker.engrave.lib.callback.MouldCallback;
+import com.baker.engrave.lib.util.HLogger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 试听体验
  * Create by hsj55
  * 2020/3/3
  */
@@ -53,6 +55,7 @@ public class ExperienceFragment extends BaseFragment implements MouldRecyclerVie
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         BakerVoiceEngraver.getInstance().setMouldCallback(mouldCallback);
 
         adapter = new MouldRecyclerViewAdapter(mouldList, getActivity(), this);
@@ -67,18 +70,22 @@ public class ExperienceFragment extends BaseFragment implements MouldRecyclerVie
         BakerVoiceEngraver.getInstance().getMouldList(1, 50, SharedPreferencesUtil.getQueryId());
     }
 
-    private MouldCallback mouldCallback = new MouldCallback() {
+    private final MouldCallback mouldCallback = new MouldCallback() {
         @Override
         public void onMouldError(int errorCode, String message) {
             Log.e("ExperienceFragment", "errorCode==" + errorCode + ", message=" + message);
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    tvNullTip.setVisibility(View.VISIBLE);
-                    tvNullTip.setText("网络请求出错啦\n请点我刷新重试");
-                    recyclerView.setVisibility(View.GONE);
-                }
-            });
+            try {
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvNullTip.setVisibility(View.VISIBLE);
+                        tvNullTip.setText("网络请求出错啦\n请点我刷新重试");
+                        recyclerView.setVisibility(View.GONE);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         /**
@@ -87,7 +94,9 @@ public class ExperienceFragment extends BaseFragment implements MouldRecyclerVie
          */
         @Override
         public void mouldInfo(Mould mould) {
-
+            if (mould != null) {
+                HLogger.e("status=" + mould.getModelStatus() + ", statusName=" + mould.getStatusName());
+            }
         }
 
         /**
