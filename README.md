@@ -124,7 +124,7 @@ SDK中用到了okhttp和gson，所以需要将这两个包的混淆代码添加�
 方法名     | 作用       | 说明    
 ---------------------- | -------------------------- | -------------------------------------
 getInstance()  | 	获取单实例  | 	获取BakerVoiceEngraver类单实例。
-initSDK()	| 	初始化SDK	| 	initSDK(Context context, String clientId, String clientSecret, String queryID)初始化SDK。前三个参数是必传参数，clientId和clientSecret是授权信息。第四个参数queryID可传空。这个queryID的作用是与当前训练的声音模型ID关联，存储备份在标贝服务器。以备后期可通过queryId查询到与此管理的所有声音模型信息。
+initSDK()	| 	初始化SDK	| 	initSDK(Context context, String clientId, String clientSecret, String queryID, InitListener listener)初始化SDK。前三个参数是必传参数，clientId和clientSecret是授权信息。第四个参数queryID可传空。这个queryID的作用是与当前训练的声音模型ID关联，存储备份在标贝服务器。以备后期可通过queryId查询到与此管理的所有声音模型信息。InitListener见5.8。
 setQueryId()	| 	设置queryId		| 如果在初始化时未上传queryId，也可以调用setQueryId(String queryID)方法设置queryID，但设置queryID一定要在调用getVoiceMouldId()方法之前调用，即4.4步之前设置。
 getTextList()	| 	获取录音文本信息	| 	调用此方法获取录音文本信息。参考demo，将返回的文本信息列表分条展示，供用户完成录音流程。
 startDBDetection()	| 	开启噪音检测	| 	噪音检测通过固定算法得出环境声音分贝值作为检测终值，如果终值大于70分贝，是不允许进行后续步骤的，因为环境太嘈杂，会直接影响训练出来的声音的品质。可以参考demo中对于返回结果的提示以及逻辑处理，如果噪音检测不通过，可以换环境在相对安静的空间内重新检测。重新检测也是调用此方法。
@@ -184,6 +184,12 @@ onMouldError | 	错误信息回调 | 	onMouldError(int errorCode, String message
 playStart | 试听开始 | 当开始播放的时候回调此方法
 playEnd | 试听结束 | 当播放结束的时候回调此方法
 playError | 试听报错 | 当播放过程中出现错误的时候回调此方法时候回调此方法
+
+## 5.8 InitListener，初始化结果回调
+接口方法名	     |   作用     | 说明
+------ | --------------- | ---------
+onInitSuccess | 初始化成功 | 当初始化成功的时候回调此方法
+onInitError(Exception e) | 初始化失败 | 当初始化识别的回收回调此方法
 
 # 6.失败时返回的code对应表
 错误码 | 	含义
