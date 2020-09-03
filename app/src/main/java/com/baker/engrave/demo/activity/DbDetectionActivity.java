@@ -12,6 +12,9 @@ import com.baker.engrave.demo.R;
 import com.baker.engrave.lib.BakerVoiceEngraver;
 import com.baker.engrave.lib.callback.DetectCallback;
 
+/**
+ * 检测噪音
+ */
 public class DbDetectionActivity extends BaseActivity implements DetectCallback {
     private String TAG = "DbDetectionActivity";
     private int BTN_TYPE = 0; //0=默认状态，检测未通过。1=检测通过，可以复刻。
@@ -95,8 +98,8 @@ public class DbDetectionActivity extends BaseActivity implements DetectCallback 
                     //因音频焦点丢失或电话等异常中断检测
                     btnStartEngrave.setEnabled(true);
                     tvDetectValue.setText("0 db");
-                    tvDetectTip.setText("检测中断啦，请再试一次吧");
                     BTN_TYPE = 0;
+                    tvDetectTip.setText("检测中断啦，请再试一次吧");
                     btnStartEngrave.setText("重新检测");
                 } else {
                     Toast.makeText(DbDetectionActivity.this, message, Toast.LENGTH_SHORT).show();

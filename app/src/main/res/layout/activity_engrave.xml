@@ -1,100 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.EngraveActivity">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar"/>
-
-    <LinearLayout
-        android:id="@+id/lyt_index"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:orientation="vertical"
-        android:background="@drawable/shape_bg_circle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp">
-
-        <TextView
-            android:id="@+id/tv_index_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="1" />
-        <View
-            android:layout_width="76dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorPrimary"/>
-        <TextView
-            android:id="@+id/tv_index_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"
-            android:text="共12段" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lyt_index"
-        android:textColor="@android:color/black"
-        android:layout_marginStart="26dp"
-        android:layout_marginEnd="26dp"
-        android:textSize="20sp"
-        android:text="欢迎来到标贝科技声音复刻体验区，体验声音复刻的黑科技。接下来您将阅读完我们的12段语料文本。期望您有一个愉快的体验过程。接下来，我们就开始啦。"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:id="@+id/tv_recognize_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_content"
-        android:text="录音中..."
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape_radius_6dp_black"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        />
-
-    <ImageView
-        android:id="@+id/img_recording"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_content"
-        android:layout_marginTop="10dp"
-        android:background="@mipmap/volume_1"
-        android:visibility="invisible"
-        />
-
-    <Button
-        android:id="@+id/record_start"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@id/img_recording"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:background="@drawable/selector_bg_20_radius"
-        android:textColor="@drawable/selector_text_button"
-        android:textSize="18sp"
-        android:enabled="true"
-        android:text="点击开始录制"/>
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".activity.EngraveActivity">
 
-</RelativeLayout>
+        <include layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:id="@+id/lyt_index"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/shape_bg_circle"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_index_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp" />
+
+            <View
+                android:layout_width="76dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tv_index_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="共12段"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="26dp"
+            android:text="欢迎来到标贝科技声音复刻体验区，体验声音复刻的黑科技。接下来您将阅读完我们的12段语料文本。期望您有一个愉快的体验过程。接下来，我们就开始啦。"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_recognize_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_radius_6dp_black"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            android:text="录音中..."
+            android:textColor="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/img_recording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/volume_1"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/record_start"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/selector_bg_20_radius"
+            android:enabled="true"
+            android:text="点击开始录制"
+            android:textColor="@drawable/selector_text_button"
+
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/selector_bg_20_radius"
+                android:text="上一条"
+                android:textColor="@drawable/selector_text_button" />
+
+            <Button
+                android:id="@+id/btnPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/selector_bg_20_radius"
+                android:text="试听"
+                android:textColor="@drawable/selector_text_button" />
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/selector_bg_20_radius"
+                android:text="下一条"
+                android:textColor="@drawable/selector_text_button" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

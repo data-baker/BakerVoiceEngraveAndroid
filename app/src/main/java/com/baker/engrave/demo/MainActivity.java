@@ -5,23 +5,30 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.baker.engrave.demo.activity.BaseActivity;
+import com.baker.engrave.demo.activity.EngraveActivity;
 import com.baker.engrave.demo.base.Constants;
 import com.baker.engrave.demo.fragment.ExperienceFragment;
 import com.baker.engrave.demo.fragment.HomeFragment;
 import com.baker.engrave.demo.permission.PermissionUtil;
 import com.baker.engrave.demo.util.SharedPreferencesUtil;
 import com.baker.engrave.lib.BakerVoiceEngraver;
+import com.baker.engrave.lib.callback.InitListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends BaseActivity {
@@ -49,6 +56,7 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
         lytClientInfo = findViewById(R.id.lyt_client_info);
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         lytClientInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,30 +78,62 @@ public class MainActivity extends BaseActivity {
                 if (TextUtils.isEmpty(clientSecret)) {
                     Toast.makeText(MainActivity.this, "ClientSecret is null", Toast.LENGTH_SHORT).show();
                     return;
+
                 }
-                SharedPreferencesUtil.saveClientId(clientId);
-                SharedPreferencesUtil.saveClientSecret(clientSecret);
+
+                showProgressDialog();
+
                 //初始化复刻SDK
-                BakerVoiceEngraver.getInstance().initSDK(MainActivity.this, clientId, clientSecret, SharedPreferencesUtil.getQueryId());
-                lytClientInfo.setVisibility(View.GONE);
+                BakerVoiceEngraver.getInstance().initSDK(MainActivity.this, clientId, clientSecret, SharedPreferencesUtil.getQueryId(), new InitListener() {
+                    @Override
+                    public void onInitSuccess() {
+                        SharedPreferencesUtil.saveClientId(clientId);
+                        SharedPreferencesUtil.saveClientSecret(clientSecret);
+                        lytClientInfo.setVisibility(View.GONE);
+                        bottomNavigationView.setVisibility(View.VISIBLE);
+
+                        disMissProgressDialog();
+                    }
+
+                    @Override
+                    public void onInitError(Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "初始化失败", Toast.LENGTH_SHORT).show();
+
+                        disMissProgressDialog();
+                    }
+                });
             }
         });
 
         if (TextUtils.isEmpty(SharedPreferencesUtil.getClientId())
                 || TextUtils.isEmpty(SharedPreferencesUtil.getClientSecret())) {
             lytClientInfo.setVisibility(View.VISIBLE);
+            bottomNavigationView.setVisibility(View.GONE);
         } else {
             //初始化复刻SDK
             BakerVoiceEngraver.getInstance().initSDK(this, SharedPreferencesUtil.getClientId(),
-                    SharedPreferencesUtil.getClientSecret(), SharedPreferencesUtil.getQueryId());
-            lytClientInfo.setVisibility(View.GONE);
+                    SharedPreferencesUtil.getClientSecret(), SharedPreferencesUtil.getQueryId(), new InitListener() {
+                        @Override
+                        public void onInitSuccess() {
+                            lytClientInfo.setVisibility(View.GONE);
+                            bottomNavigationView.setVisibility(View.VISIBLE);
+
+                            log("初始化成功");
+                        }
+
+                        @Override
+                        public void onInitError(Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "初始化失败", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
 
         fragmentManager = getSupportFragmentManager();
         homeFragment = new HomeFragment();
         experienceFragment = new ExperienceFragment();
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -112,5 +152,9 @@ public class MainActivity extends BaseActivity {
             }
         });
         bottomNavigationView.setSelectedItemId(R.id.action_home);
+    }
+
+    private void log(String msg) {
+        Log.d(this.getClass().getName(), msg);
     }
 }
