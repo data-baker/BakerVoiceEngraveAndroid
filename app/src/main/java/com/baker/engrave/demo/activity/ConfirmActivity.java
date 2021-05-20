@@ -20,7 +20,6 @@ import com.baker.engrave.lib.callback.UploadRecordsCallback;
 public class ConfirmActivity extends BaseActivity implements UploadRecordsCallback {
     private TextView tvTips, tvResult;
     private Button btnFinishEngrave;
-    private String mVoiceMouldId;
     private boolean canBack = false;
 
     @Override
@@ -29,7 +28,6 @@ public class ConfirmActivity extends BaseActivity implements UploadRecordsCallba
         setContentView(R.layout.activity_confirm);
         showToolbar(R.string.string_step_3);
 
-        mVoiceMouldId = getIntent().getStringExtra("mouldId");
         initView();
         BakerVoiceEngraver.getInstance().setUploadRecordsCallback(this);
     }
@@ -44,41 +42,34 @@ public class ConfirmActivity extends BaseActivity implements UploadRecordsCallba
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.engrave_finish:
-                if (canBack) {
-                    finish();
-                } else {
-                    AlertDialog.Builder customizeDialog = new AlertDialog.Builder(ConfirmActivity.this);
-                    final View dialogView = LayoutInflater.from(ConfirmActivity.this).inflate(R.layout.dialog_edittext,null);
-                    customizeDialog.setTitle("请填写一个手机号，方便接收模型训练进度信息。");
-                    customizeDialog.setView(dialogView);
-                    customizeDialog.setPositiveButton("提交",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    EditText edit_text = dialogView.findViewById(R.id.phone);
-                                    BakerVoiceEngraver.getInstance().finishRecords(edit_text.getText().toString().trim());
-                                }
-                            });
-                    customizeDialog.setNegativeButton("跳过",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    EditText edit_text = dialogView.findViewById(R.id.phone);
-                                    BakerVoiceEngraver.getInstance().finishRecords(edit_text.getText().toString().trim());
-                                }
-                            });
-                    customizeDialog.show();
-                }
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.engrave_finish) {
+            if (canBack) {
+                finish();
+            } else {
+                AlertDialog.Builder customizeDialog = new AlertDialog.Builder(ConfirmActivity.this);
+                final View dialogView = LayoutInflater.from(ConfirmActivity.this).inflate(R.layout.dialog_edittext, null);
+                customizeDialog.setTitle("请填写一个手机号，方便接收模型训练进度信息。");
+                customizeDialog.setView(dialogView);
+                customizeDialog.setPositiveButton("提交",
+                        (dialog, which) -> {
+                            EditText edit_text = dialogView.findViewById(R.id.phone);
+                            boolean result = BakerVoiceEngraver.getInstance().finishRecords(edit_text.getText().toString().trim(), null);
+                            if (!result) {
+                                Toast.makeText(this, "数据未全录制完成", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                customizeDialog.setNegativeButton("跳过",
+                        (dialog, which) -> {
+                            EditText edit_text = dialogView.findViewById(R.id.phone);
+                            BakerVoiceEngraver.getInstance().finishRecords(edit_text.getText().toString().trim(), null);
+                        });
+                customizeDialog.show();
+            }
         }
     }
 
     @Override
-    public void uploadRecordsResult(final boolean result) {
+    public void uploadRecordsResult(final boolean result, String mouldId) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

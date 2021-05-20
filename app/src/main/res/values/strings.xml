@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">标贝复刻</string>
+    <string name="app_name">声音复刻</string>
     <string name="string_welcome">欢迎体验</string>
-    <string name="string_baker_engrave">标贝科技声音复刻技术</string>
+    <string name="string_baker_engrave">声音复刻技术</string>
     <string name="string_voice_engrave">声音复刻</string>
     <string name="string_listen_experience">试听体验</string>
     <string name="string_listen_experience_null">试听体验\n当前无声音模型。</string>

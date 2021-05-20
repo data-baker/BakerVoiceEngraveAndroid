@@ -54,6 +54,7 @@
             android:paddingBottom="10dp"
             android:textColor="@android:color/black"
             android:layout_margin="20dp"
+            android:text="bb4f7ecb-a4bd-42dd-935a-ba6c64b12f4f"
             android:hint="请输入ClientId..."
             android:textSize="16sp"/>
 
@@ -69,6 +70,7 @@
             android:paddingBottom="10dp"
             android:textColor="@android:color/black"
             android:layout_margin="20dp"
+            android:text="Zjc3Y2NjOTItZGFkOC00NmVhLWJiZmEtOTkwY2Q0YmNhNzJi"
             android:hint="请输入ClientSecret..."
             android:textSize="16sp"/>
 
@@ -76,7 +78,7 @@
             android:id="@+id/save_client_info"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="200dp"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
             android:background="@drawable/selector_bg_20_radius"

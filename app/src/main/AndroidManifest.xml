@@ -2,26 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.baker.engrave.demo">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
     <application
         android:name=".base.BakerEngraveApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
-        <activity android:name=".activity.ExperienceActivity" android:screenOrientation="portrait" />
-        <activity android:name=".activity.ConfirmActivity" android:screenOrientation="portrait" />
-        <activity android:name=".activity.EngraveActivity" android:screenOrientation="portrait" />
-        <activity android:name=".activity.BaseActivity" android:screenOrientation="portrait" />
-        <activity android:name=".activity.DbDetectionActivity" android:screenOrientation="portrait" />
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.ExperienceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ConfirmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EngraveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DbDetectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,5 +37,9 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
